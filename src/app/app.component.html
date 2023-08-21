@@ -1,44 +1,4 @@
-<app-spinner *ngIf="isLoading | async"></app-spinner>
-<div class="container">
-  <div class="inputContainer">
-    <input placeholder="Nhập từ để tìm kiếm" type="text" [ngModel]="input" (blur)="blurInput($event.target.value)" (keyup.enter)="search($event.target.value)">
-    <button (click)="search(input)">
-      Tìm kiếm
-    </button>
-  </div>
-  <div class="contentContainer">
-    <div *ngIf="searchedBest.length > 0" class="elementContainer row">
-      <i *ngIf="showBest" (click)="changeShow('best')" class="fa fa-chevron-up float-left width10px"></i>
-      <i *ngIf="!showBest" (click)="changeShow('best')" class="fa fa-chevron-down float-left width10px"></i>
-      <span style="margin-left: 10px; color: forestgreen" class="float-left width300px"><b>Nhưng từ phù hợp nhất</b></span>
-      <hr>
-      <div *ngIf="showBest">
-        <div class="col-md-2 item" *ngFor="let best of searchedBest">
-          <span [title]="best.description">{{best.word}}</span>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="searchedSecondBest.length > 0" class="elementContainer row">
-      <i *ngIf="showSecondBest" (click)="changeShow('second')" class="fa fa-chevron-up float-left width10px"></i>
-      <i *ngIf="!showSecondBest" (click)="changeShow('second')" class="fa fa-chevron-down float-left width10px"></i>
-      <span style="margin-left: 10px; color: coral" class="float-left width300px"><b>Nhưng từ phù hợp dừa dừa</b></span>
-      <hr>
-      <div *ngIf="showSecondBest">
-        <div class="col-md-2 item" *ngFor="let best of searchedSecondBest">
-          <span [title]="best.description">{{best.word}}</span>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="searchBad.length > 0" class="elementContainer row">
-      <i *ngIf="showBad" (click)="changeShow('bad')" class="fa fa-chevron-up float-left width10px"></i>
-      <i *ngIf="!showBad" (click)="changeShow('bad')" class="fa fa-chevron-down float-left width10px"></i>
-      <span style="margin-left: 10px; color: #ee786e" class="float-left width300px"><b>Nhưng từ kém phù hợp</b></span>
-      <hr>
-      <div *ngIf="showBad">
-        <div class="col-md-2 item" *ngFor="let best of searchBad">
-          <span>{{best.word}}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<input type="text" (blur)="search($event.target.value)">
+<p>{{sameList.toString()}}</p>
+<p>{{semiSameList.toString()}}</p>
+<button (click)="addExcelFile()">Add</button>
