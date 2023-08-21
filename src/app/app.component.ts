@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import * as XLSX from 'xlsx';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-root',
@@ -95,7 +96,12 @@ export class AppComponent implements OnInit {
           const wsname: string = wb.SheetNames[0];
           const ws: XLSX.WorkSheet = wb.Sheets[wsname];
           const dataToAdd = ['New'];
-          XLSX.utils.sheet_add_json(ws, dataToAdd);
+          const dataToWrite = [...this.data, dataToAdd];
+          const newSheet = XLSX.utils.json_to_sheet(dataToWrite);
+          const workbook = { Sheets: { data: newSheet }, SheetNames: ['data'] };
+          const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+          const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+          FileSaver.saveAs(blob, 'assets/data/data.xlsx');
         };
         reader.readAsBinaryString(data);
       });
