@@ -10,12 +10,14 @@ import {BehaviorSubject} from 'rxjs';
 })
 export class AppComponent implements OnInit {
   title = 'vanvoitthoi';
+  input: string;
   tuGhep: any;
   tuDon: any;
   sameList = [];
   semiSameList = [];
   formTuDon = [];
-  input;
+  searched = false;
+  isMobile = false;
   isLoading = new BehaviorSubject(false);
 
   constructor(
@@ -23,6 +25,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isMobile = window.screen.width < 500;
     this.readData();
   }
 
@@ -60,6 +63,7 @@ export class AppComponent implements OnInit {
 
   // #endregion
   search(value: string): void {
+    this.searched = false;
     this.reset();
     const valueSplit = value.split(' ');
     this.tuGhep.forEach(d => {
@@ -93,11 +97,12 @@ export class AppComponent implements OnInit {
       fromTuDon.push(wordI);
     });
     this.formTuDon = this.generateCombinations(fromTuDon);
+    this.searched = true;
   }
 
   private tachPhuAmDau(text): string {
     const phuAm = [
-      'b', 'ch', 'c', 'd', 'đ', 'gh', 'g', 'h', 'kh', 'k', 'l', 'm', 'nh', 'ng', 'ngh', 'n', 'ph', 'p', 'q', 'r', 's', 'th', 'tr', 't', 'v', 'x'
+      'b', 'ch', 'c', 'd', 'đ', 'gh', 'g', 'h', 'kh', 'k', 'l', 'm', 'nh', 'ng', 'ngh', 'n', 'ph', 'p', 'q', 'r', 's', 'th', 'tr', 't', 'v', 'x', 'y'
     ];
 
     for (const pA of phuAm) {
@@ -106,7 +111,7 @@ export class AppComponent implements OnInit {
       }
     }
 
-    return ''; // Trả về chuỗi rỗng nếu không tìm thấy phụ âm đầu
+    return text; // Trả về chuỗi rỗng nếu không tìm thấy phụ âm đầu
   }
 
   private reset(): any {

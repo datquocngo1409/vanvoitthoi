@@ -5,8 +5,10 @@ $sand: #fceeb5;
 $white: #fff;
 
 .container {
-  width: 100vw;
+  width: 99vw;
   height: 100vh;
+  padding-right: 0;
+  padding-left: 0;
   max-width: none;
   .inputContainer {
     width: 100%;
