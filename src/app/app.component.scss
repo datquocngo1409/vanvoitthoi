@@ -27,6 +27,10 @@ $white: #fff;
       outline: none !important;
       --tw-shadow: 0 0 15px rgba(0,0,0,.1);
       --tw-shadow-colored: 0 0 15px var(--tw-shadow-color);
+      @media screen and (max-width: 500px) {
+        width: 80%;
+        font-size: 1em;
+      }
     }
     button {
       width: 15%;
